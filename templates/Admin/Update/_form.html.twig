@@ -1,4 +1,7 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 {% form_theme form.slides '@BlackSyliusBannerPlugin/Admin/Update/Slides/_form_theme.html.twig' %}
+{{ form_start(form) }}
 
 <h3 class="ui top attached header">Détails</h3>
 
@@ -11,7 +14,7 @@
                 {{ form_row(form.code) }}
                 {{ form_row(form.name) }}
                 {{ form_row(form.enabled) }}
-          </div>
+            </div>
         </div>
         <div class="column">
             {{ form_row(form.channels) }}
@@ -23,7 +26,72 @@
 <div class="ui hidden divider"></div>
 <h3>{{ form_label(form.slides) }}</h3>
 
-{{ form_widget(form.slides) }}
+<div class="ui segment dotit-image">
+    {% for slide in form.vars.value.slides %}
+        {% for translation in slide.translations %}
 
+            {% if translation.logoName|default(null) is not null %}
 
+                <img class="ui small bordered image" src="{{ asset('media/slide-logo/' ~ translation.logoName) }}"
+                     alt="user avatar">
 
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+</div>
+
+{{ form_end(form) }}
+
+<script>
+    (function ($) {
+        'use strict';
+
+        $.fn.extend({
+            previewUploadedImage: function (root) {
+                $(root + ' input[type="file"]').each(function () {
+                    $(this).change(function () {
+                        displayUploadedImage(this);
+                    });
+                });
+
+                $(root + ' [data-form-collection="add"]').on('click', function () {
+                    var self = $(this);
+
+                    setTimeout(function () {
+                        self.parent().find('.column:last-child input[type="file"]').on('change', function () {
+                            displayUploadedImage(this);
+                        });
+                    }, 500);
+                });
+            }
+        });
+
+        function displayUploadedImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var image = $(input).parent().siblings('.image');
+
+                    if (image.length > 0) {
+                        image.attr('src', e.target.result);
+                    } else {
+                        var img = $('<img class="ui small bordered image"/>');
+                        img.attr('src', e.target.result);
+                        $(input).parent().before(img);
+                    }
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    })(jQuery);
+
+    (function ($) {
+        $(document).ready(function () {
+            $(document).previewUploadedImage('.dotit-image')
+        });
+    })(jQuery);
+
+</script>
