@@ -303,6 +303,10 @@ return [
             <group>admin:banner:read</group>
             <group>shop:banner:read</group>
         </attribute>
+        <attribute name="devices">
+            <group>admin:banner:read</group>
+            <group>shop:banner:read</group>
+        </attribute>
         <attribute name="slides">
             <group>admin:banner:read</group>
             <group>shop:banner:read</group>
@@ -357,7 +361,7 @@ return [
             <group>admin:banner:read</group>
             <group>shop:banner:read</group>
         </attribute>
-        <attribute name="path">
+        <attribute name="logoPath">
             <group>admin:banner:read</group>
             <group>shop:banner:read</group>
         </attribute>
