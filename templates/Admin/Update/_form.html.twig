@@ -1,7 +1,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 {% form_theme form.slides '@BlackSyliusBannerPlugin/Admin/Update/Slides/_form_theme.html.twig' %}
-{{ form_start(form) }}
 
 <h3 class="ui top attached header">Détails</h3>
 
@@ -26,22 +25,13 @@
 <div class="ui hidden divider"></div>
 <h3>{{ form_label(form.slides) }}</h3>
 
+
 <div class="ui segment dotit-image">
-    {% for slide in form.vars.value.slides %}
-        {% for translation in slide.translations %}
 
-            {% if translation.logoName|default(null) is not null %}
-
-                <img class="ui small bordered image" src="{{ asset('media/slide-logo/' ~ translation.logoName) }}"
-                     alt="user avatar">
-
-            {% endif %}
-        {% endfor %}
-    {% endfor %}
+    {{ form_row(form.slides) }}
 
 </div>
 
-{{ form_end(form) }}
 
 <script>
     (function ($) {
