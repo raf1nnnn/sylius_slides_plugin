@@ -62,6 +62,18 @@ final class BannerType extends AbstractResourceType
             'validation_groups' => function (FormInterface $form): array {
                 /** @var BannerInterface|null $productHighlight */
                 $banner = $form->getData();
+                if($banner->getCode() == null){
+                    $form->get('code')->addError(new FormError('Code ne doit pas etre vide'));
+
+                }
+                if($banner->getName() == null){
+                    $form->get('name')->addError(new FormError('Name ne doit pas etre vide'));
+
+                }
+                if($banner->getDevices() == null){
+                    $form->get('devices')->addError(new FormError('Types de devices ne doit pas etre vide'));
+
+                }
                 $possibleSuffixes = array("-Desktop", "-Mobile", "-Tablette");
                 $endsWithPossibleSuffix = false;
                 if ($banner->getCode()) {
@@ -76,9 +88,8 @@ final class BannerType extends AbstractResourceType
                     }
                 }
                 foreach ($banner->getSlides() as $slide) {
-
                     foreach ($slide->getTranslations() as $translation) {
-                        if ($translation->getLogoName() == null) {
+                        if ( $translation->getLogoFile() == null && $translation->getLogoName() == null ) {
                             $form->get('slides')->addError(new FormError('Image dans translation est vide"'));
 
                         }
