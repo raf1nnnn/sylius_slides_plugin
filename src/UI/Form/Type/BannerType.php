@@ -95,7 +95,7 @@ final class BannerType extends AbstractResourceType
                         }
                     }
                 }
-                return array_merge($this->validationGroups, ['dotit_product']);
+                return array_merge($this->validationGroups, ['black_banner']);
             }
         ]);
 

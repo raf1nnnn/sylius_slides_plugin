@@ -1,0 +1,21 @@
+Black\SyliusBannerPlugin\Entity\Banner:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+              fields: [code]
+              message: 'black_sylius_banner.banner.code.unique'
+              groups: ['black_banner']
+    
+    
+    properties:
+        code:
+            - NotBlank:
+                  message: 'black_sylius_banner.banner.code.not_blank'
+                  groups: ['black_banner']
+            - Length:
+                  min: 2
+                  max: 250
+                  minMessage: 'dotit_sylius_highlighting_plugin.product_highlighting.name.min_length'
+                  maxMessage: 'dotit_sylius_highlighting_plugin.product_highlighting.name.max_length'
+                  groups: ['black_banner']
+        
+       
